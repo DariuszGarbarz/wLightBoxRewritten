@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using System;
 using System.Net.Http;
 using System.Reflection;
 using wLightBoxRewritten.Api;
