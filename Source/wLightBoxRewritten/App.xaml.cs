@@ -1,42 +1,41 @@
 ﻿using Autofac;
 using log4net;
-using System;
-using System.Threading;
 using System.Windows;
+using wLightBoxRewritten.Autofac;
+using wLightBoxRewritten.Views;
 
-namespace wLightBoxRewritten
+namespace wLightBoxRewritten;
+
+public partial class App : Application
 {
-    public partial class App : Application
+    public static IContainer? AppContainer;
+
+    private ILog? _log;
+
+    public App()
     {
-        public static IContainer? AppContainer;
+        AppContainer = ContainerConfig.Configure();
+    }
 
-        private ILog? _log;
+    protected override void OnStartup(StartupEventArgs e)
+    {
+        AppContainer!.BeginLifetimeScope();
+        _log = AppContainer.Resolve<ILog>();
 
-        public App()
-        {
-            AppContainer = ContainerConfig.Configure();
-        }
+        _log.Info("Container started, the app is running");
 
-        protected override void OnStartup(StartupEventArgs e)
-        {
-            AppContainer!.BeginLifetimeScope();
-            _log = AppContainer.Resolve<ILog>();
+        var mainWindow = AppContainer.Resolve<MainWindow>();
+        mainWindow.Show();
 
-            _log.Info("Container started, the app is running");
+        base.OnStartup(e);
+    }
 
-            var mainWindow = AppContainer.Resolve<MainWindow>();
-            mainWindow.Show();
+    protected override async void OnExit(ExitEventArgs e)
+    {
+        await AppContainer!.DisposeAsync();
+        _log!.Info("Container disposed, exiting the app");
+        _log!.Info("-----------------------------------");
 
-            base.OnStartup(e);
-        }
-
-        protected override async void OnExit(ExitEventArgs e)
-        {
-            await AppContainer!.DisposeAsync();
-            _log!.Info("Container disposed, exiting the app");
-            _log!.Info("-----------------------------------");
-
-            base.OnExit(e);
-        }
+        base.OnExit(e);
     }
 }

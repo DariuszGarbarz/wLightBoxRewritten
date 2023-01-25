@@ -13,7 +13,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="resources\" />
+    <Folder Include="Api\JsonConverters\" />
+    <Folder Include="Api\Models\" />
+    <Folder Include="Resources\" />
   </ItemGroup>
 
   <ItemGroup>
