@@ -1,5 +1,9 @@
 ﻿namespace wLightBoxRewritten.Api;
 
-public class ApiHttpClient
+public interface IApiHttpClient
+{
+}
+
+public class ApiHttpClient : IApiHttpClient
 {
 }
