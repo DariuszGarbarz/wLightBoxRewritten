@@ -1,20 +1,17 @@
-using FluentAssertions;
+namespace wLightBoxRewrittenTests;
 
-namespace wLightBoxRewrittenTests
+public class EntryTests
 {
-    public class EntryTests
+    [SetUp]
+    public void Setup()
     {
-        [SetUp]
-        public void Setup()
-        {
-        }
+    }
 
-        [Test]
-        public void Test1()
-        {
-            var test = true;
+    [Test]
+    public void Test1()
+    {
+        var test = true;
 
-            test.Should().BeTrue();
-        }
+        test.Should().BeTrue();
     }
 }
